@@ -78,18 +78,18 @@
 <body class="{{ BODY_CLASS }}">
 	<a href="#main" class="skip-link">Перейти к основному содержанию</a>
 	<div class="wrapper">
-		{% include 'header/block.php' %}
+		{% filter indent_tabs(2) %}{% include 'header/block.php' %}{% endfilter %}
 
-		{% if breadcrumbs and breadcrumbs.length %}{% include 'breadcrumbs/block.php' %}{% endif %}
+		{% if breadcrumbs and breadcrumbs.length %}{% filter indent_tabs(2) %}{% include 'breadcrumbs/block.php' %}{% endfilter %}{% endif %}
 
 		<main id="main" class="main" tabindex="-1">
-			{% block content %}{% endblock %}
+			{% filter indent_tabs(3) %}{% block content %}{% endblock %}{% endfilter %}
 		</main>
 
-		{% include 'footer/block.php' %}
+		{% filter indent_tabs(2) %}{% include 'footer/block.php' %}{% endfilter %}
 	</div>
 
-	{% block popups %}{% endblock %}
+	{% filter indent_tabs(1) %}{% block popups %}{% endblock %}{% endfilter %}
 </body>
 
 </html>

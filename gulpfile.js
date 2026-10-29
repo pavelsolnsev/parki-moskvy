@@ -164,7 +164,23 @@ function nunjucks() {
 	.pipe( plugins.nunjucksRender({
 		path: [CONFIG.templates, CONFIG.blocks],
 		inheritExtension: true,
-		throwOnUndefined: true
+		throwOnUndefined: true,
+		envOptions: { trimBlocks: true, lstripBlocks: true },
+		manageEnv: function (env) {
+			env.addFilter('indent_tabs', function (html, level) {
+				return env.getFilter('safe')(String(html).replace(/^(?=[^\n])/gm, '\t'.repeat(level)));
+			});
+		}
+	}) )
+	.pipe( new Transform({
+		objectMode: true,
+		transform(file, encoding, callback) {
+			const html = file.contents.toString()
+				.replace(/[ \t]+$/gm, '')
+				.replace(/\n{2,}/g, '\n');
+			file.contents = Buffer.from(html);
+			callback(null, file);
+		}
 	}) )
 	.pipe( gulp.dest(CONFIG.output) )
 	;
