@@ -1,0 +1,23 @@
+.news {
+  @include adaptiv-value(padding-block, 56, 120);
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: to-rem(16);
+    @include adaptiv-value(margin-bottom, 24, 32);
+  }
+
+  &__all {
+    padding-right: to-rem(22);
+  }
+
+  &__list {
+    @media (max-width: 767px) {
+      @include adaptiv-value(margin-inline, -16, -120);
+      @include adaptiv-value(padding-inline, 16, 120);
+    }
+  }
+}

@@ -1,0 +1,165 @@
+@use "sass:math";
+
+@function card($px) {
+  @return math.div($px, 544) * 100cqw;
+}
+
+.focus {
+  @include adaptiv-value(padding-top, 56, 120);
+  background: linear-gradient(to bottom, rgba(225, 234, 232, 0.01) 62%, var(--color-light) 100%);
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(16);
+
+    @include media(992) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: to-rem(24);
+    }
+  }
+
+  &__title {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 32, 72);
+    line-height: 1.14;
+    color: var(--color-black);
+  }
+
+  &__text {
+    max-width: to-rem(704);
+    @include adaptiv-value(font-size, 16, 24);
+    line-height: 1.17;
+    color: var(--color-black);
+    opacity: 0.6;
+
+    @include media(992) {
+      padding-top: to-rem(6);
+      text-align: right;
+    }
+  }
+
+  &__track {
+    @include adaptiv-value(padding-top, 32, 40);
+    @include adaptiv-value(padding-bottom, 72, 100);
+  }
+
+  &__slide {
+    flex: 0 0 auto;
+    --w: clamp(#{to-rem(280)}, #{to-rem(280)} + (100vw - #{to-rem(375)}) * #{math.div(544 - 280, 1920 - 375)}, #{to-rem(544)});
+    width: var(--w);
+    aspect-ratio: 544 / 680;
+    --ty: 0%;
+
+    &:nth-child(even) {
+      --ty: 7.2%;
+    }
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    --w: clamp(#{to-rem(280)}, #{to-rem(280)} + (100vw - #{to-rem(375)}) * #{math.div(544 - 280, 1920 - 375)}, #{to-rem(544)});
+    padding: calc(var(--w) * 20 / 544);
+    overflow: hidden;
+    container-type: inline-size;
+    background: var(--bg);
+    color: var(--color-white);
+    transform: translateY(var(--ty)) rotate(var(--rotate, 8deg));
+    transition: transform $dur-slow $ease;
+    will-change: transform;
+    backface-visibility: hidden;
+
+    &:hover {
+      color: var(--color-white);
+    }
+
+    @include hover {
+      transform: translateY(var(--ty)) rotate(var(--rotate-hover, 0deg));
+
+      .focus__photo img {
+        transform: scale(1.08);
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: calc(var(--px) / 544 * 100%);
+      top: calc(var(--py) / 680 * 100%);
+      width: math.div(2042, 544) * 100%;
+      height: math.div(2040, 680) * 100%;
+      background: url("../img/focus/pattern.svg") 0 0 / 100% 100% no-repeat;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    &_dark {
+      color: var(--color-green);
+
+      &:hover {
+        color: var(--color-green);
+      }
+    }
+
+    &_dark::before,
+    &_light::before {
+      opacity: 0.07;
+    }
+  }
+
+  &__tag,
+  &__photo,
+  &__name,
+  &__lettering {
+    position: relative;
+  }
+
+  &__tag {
+    font-weight: 500;
+    font-size: max(#{to-rem(11)}, #{card(18)});
+    line-height: card(24);
+    text-transform: uppercase;
+  }
+
+  &__photo {
+    display: block;
+    margin-top: card(24);
+    aspect-ratio: 504 / 480;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $dur-slow $ease;
+    }
+  }
+
+  &__name {
+    margin-top: card(24);
+    font-weight: 500;
+    font-size: max(#{to-rem(14)}, #{card(24)});
+    line-height: 1.17;
+  }
+
+  &__card_final {
+    align-items: center;
+    padding-top: calc(var(--w) * 226 / 544);
+    cursor: default;
+
+    .focus__name {
+      text-align: center;
+    }
+  }
+
+  &__lettering {
+    width: card(374);
+    max-width: none;
+  }
+}

@@ -1,0 +1,85 @@
+.partners {
+  @include adaptiv-value(padding-top, 56, 120);
+  @include adaptiv-value(padding-bottom, 56, 80);
+  background: #f6f8f7;
+
+  &__title {
+    @include adaptiv-value(margin-bottom, 24, 32);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: to-rem(200);
+    aspect-ratio: 260 / 144;
+    background: transparent;
+    transition: background $dur-slow $ease, backdrop-filter $dur-slow $ease;
+
+    @include hover {
+      backdrop-filter: blur(40px);
+
+      img {
+        transform: scale(1.06);
+      }
+    }
+
+    img {
+      max-width: 70%;
+      transition: transform $dur-slow $ease;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    &_kod,
+    &_mri,
+    &_premier {
+      @include hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(237, 240, 239, 0.6) 100%);
+      }
+    }
+
+    &_ozon {
+      @include hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(0, 188, 196, 0.16) 100%);
+      }
+    }
+
+    &_souz {
+      @include hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(79, 195, 234, 0.2) 100%);
+      }
+    }
+
+    &_vkusvill {
+      @include hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(57, 181, 74, 0.18) 100%);
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: to-rem(16);
+    margin-top: to-rem(32);
+
+    @include media(576) {
+      justify-content: space-between;
+    }
+  }
+
+  &__arrows {
+    display: none;
+    gap: to-rem(16);
+
+    @include media(576) {
+      display: flex;
+    }
+  }
+
+  &__all {
+    padding: 0 to-rem(22) 0 to-rem(24);
+  }
+}

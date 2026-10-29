@@ -1,0 +1,150 @@
+@use "sass:math";
+
+.hobby {
+  @include adaptiv-value(padding-top, 56, 100);
+  @include adaptiv-value(padding-bottom, 56, 20);
+  background: var(--color-light);
+
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: to-rem(24);
+    @include adaptiv-value(margin-bottom, 24, 32);
+  }
+
+  &__title {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 32, 72);
+    line-height: 1.14;
+    color: var(--color-black);
+  }
+
+  &__nav {
+    display: none;
+    gap: to-rem(16);
+    padding-bottom: to-rem(6);
+
+    @include media(768) {
+      display: flex;
+    }
+  }
+
+  &__arrow_prev,
+  &__arrow_next {
+    transition: background $dur $ease, color $dur $ease;
+
+    &:hover {
+      background: rgba(13, 72, 59, 0.08);
+      color: var(--color-gray);
+    }
+  }
+
+  &__slider {
+    @media (max-width: 767px) {
+      @include adaptiv-value(margin-inline, -16, -120);
+      @include adaptiv-value(padding-inline, 16, 120);
+    }
+  }
+
+  &__card {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    @include adaptiv-value(width, 260, 402);
+    aspect-ratio: 402 / 580;
+    overflow: hidden;
+    background: var(--color-light);
+    color: var(--color-white);
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s $ease, transform 0.6s $ease;
+
+    .hobby__card:hover & {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+  }
+
+  &__deco {
+    position: absolute;
+    z-index: 1;
+    left: var(--deco-x);
+    top: var(--deco-y);
+    width: var(--deco-w);
+    height: var(--deco-h);
+    max-width: none;
+    transform: translate(-50%, -50%) rotate(var(--deco-rotate, 0deg));
+    transition: transform 0.6s $ease;
+
+    .hobby__card:hover & {
+      transform: translate(-50%, -50%) rotate(calc(var(--deco-rotate, 0deg) + 20deg));
+    }
+  }
+
+  &__box {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: math.div(328, 580) * 100%;
+    width: math.div(322, 402) * 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: to-rem(16);
+    @include adaptiv-value(padding, 16, 20);
+    background: var(--bg);
+    transition: background 0.6s $ease, backdrop-filter 0.6s $ease;
+
+    .hobby__card_date & {
+      top: math.div(240, 580) * 100%;
+      bottom: 0;
+    }
+
+    .hobby__card:hover & {
+      backdrop-filter: blur(20px);
+
+      @supports (background: color-mix(in srgb, red 50%, transparent)) {
+        background: color-mix(in srgb, var(--bg) 55%, transparent);
+      }
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    @include adaptiv-value(gap, 16, 24);
+  }
+
+  &__tag {
+    font-weight: 500;
+    font-size: to-rem(12);
+    line-height: to-rem(14);
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  &__name {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 18, 24);
+    line-height: 1.17;
+  }
+
+  &__date {
+    font-size: to-rem(16);
+    line-height: to-rem(20);
+    opacity: 0.6;
+  }
+}

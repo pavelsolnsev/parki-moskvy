@@ -1,0 +1,105 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: to-rem(16);
+  color: var(--color-green);
+
+  &:hover {
+    color: var(--color-green);
+  }
+
+  @include hover {
+    .tile__image img {
+      transform: scale(1.05);
+    }
+
+    .tile__image::after {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  &__image {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 402 / 230;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $dur-slow $ease;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      right: to-rem(-50);
+      bottom: to-rem(-70);
+      width: to-rem(230);
+      height: to-rem(320);
+      background: url("../img/tile/deco-orange.svg") 0 0 / contain no-repeat;
+      opacity: 0;
+      transform: rotate(-12deg) scale(0.9);
+      transition: opacity $dur-slow $ease, transform $dur-slow $ease;
+      pointer-events: none;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    left: to-rem(10);
+    bottom: to-rem(10);
+  }
+
+  &__cat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: to-rem(8);
+    font-weight: 500;
+    font-size: to-rem(12);
+    line-height: to-rem(14);
+    text-transform: uppercase;
+  }
+
+  &__dot {
+    width: to-rem(4);
+    height: to-rem(4);
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  &__title {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 20, 24);
+    line-height: 1.17;
+  }
+
+  &__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: to-rem(16);
+    line-height: to-rem(20);
+    color: var(--color-black);
+  }
+
+  &__date {
+    font-size: to-rem(16);
+    line-height: to-rem(21);
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: to-rem(8);
+  }
+}

@@ -1,0 +1,336 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: to-rem(4) 0;
+  @include adaptiv-value(padding-inline, 8, 96);
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(4);
+    padding: to-rem(4);
+    border-radius: to-rem(24);
+    background: transparent;
+    transform: translateZ(0);
+    transition: background $dur $ease;
+  }
+
+  &.scrolled &__inner {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+  }
+
+  &__top {
+    display: none;
+    align-items: center;
+    gap: to-rem(24);
+    min-height: to-rem(56);
+    padding-left: to-rem(24);
+
+    @include media(1400) {
+      display: flex;
+    }
+  }
+
+  &__media {
+    display: flex;
+    align-items: center;
+    gap: to-rem(36);
+    flex: 1;
+  }
+
+  &__play,
+  &__tool {
+    display: flex;
+    align-items: center;
+    height: to-rem(56);
+    font-weight: 500;
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    color: var(--color-gray);
+    transition: color $dur $ease;
+
+    &:hover {
+      color: var(--color-green);
+    }
+  }
+
+  &__play {
+    gap: to-rem(12);
+  }
+
+  &__play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: to-rem(40);
+    height: to-rem(40);
+    border-radius: 50%;
+    background-color: rgba(9, 55, 56, 0);
+    transition: background-color $dur $ease;
+
+    .icon-play__disk {
+      fill: var(--color-white);
+      opacity: 0;
+      transition: opacity $dur $ease;
+    }
+
+    .icon-play__solid {
+      fill: var(--color-green-dark);
+      opacity: 0;
+      transition: opacity $dur $ease;
+    }
+
+    .header__play:hover & {
+      background-color: var(--color-green-dark);
+
+      .icon-play__disk,
+      .icon-play__solid {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__ticker {
+    position: relative;
+    display: block;
+    width: to-rem(290);
+    height: to-rem(22);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__ticker-label,
+  &__ticker-title {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    transition: opacity $dur $ease;
+  }
+
+  &__ticker-label {
+    opacity: 1;
+    text-overflow: ellipsis;
+
+    .header__play_ticker:hover & {
+      opacity: 0;
+    }
+  }
+
+  &__ticker-title {
+    opacity: 0;
+
+    .header__play_ticker:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__ticker-track {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    animation: header-ticker 9s linear infinite;
+    animation-play-state: paused;
+
+    span {
+      padding-right: to-rem(32);
+    }
+
+    .header__play_ticker:hover & {
+      animation-play-state: running;
+    }
+  }
+
+  @keyframes header-ticker {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  &__tool {
+    gap: to-rem(8);
+    height: to-rem(56);
+    padding: to-rem(16) to-rem(24) to-rem(16) to-rem(22);
+    border-radius: to-rem(16);
+  }
+
+  &__line {
+    display: none;
+    height: 1px;
+    margin: 0 to-rem(24);
+    background: var(--color-light);
+
+    @include media(1400) {
+      display: block;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: to-rem(20);
+    min-height: to-rem(56);
+    padding: 0 to-rem(4) 0 to-rem(16);
+
+    @include media(1400) {
+      min-height: to-rem(80);
+      padding: to-rem(12) 0 to-rem(12) to-rem(24);
+    }
+  }
+
+  &__logo {
+    display: flex;
+    flex: 0 0 auto;
+
+    img {
+      @include adaptiv-value(width, 120, 147);
+    }
+  }
+
+  &__nav {
+    display: none;
+
+    @include media(1400) {
+      display: flex;
+    }
+
+    &.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: calc(100% + #{to-rem(4)});
+      left: 0;
+      right: 0;
+      max-height: calc(100vh - #{to-rem(80)});
+      max-height: calc(100dvh - #{to-rem(80)});
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: to-rem(8);
+      border-radius: to-rem(24);
+      background: var(--color-white);
+      box-shadow: 0 to-rem(12) to-rem(40) rgba(0, 14, 51, 0.12);
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: to-rem(8);
+    height: to-rem(56);
+    flex: 0 0 auto;
+    padding: to-rem(16) clamp(#{to-rem(12)}, 2.31vw - #{to-rem(20.3)}, #{to-rem(24)});
+    border-radius: to-rem(16);
+    font-weight: 500;
+    font-size: to-rem(18);
+    line-height: to-rem(22);
+    color: var(--color-black);
+    white-space: nowrap;
+    transition: color $dur $ease;
+
+    &:hover,
+    &.active {
+      color: var(--color-green);
+    }
+  }
+
+  &__nav-extra {
+    display: flex;
+    flex-direction: column;
+    margin-top: to-rem(8);
+    padding-top: to-rem(8);
+    border-top: 1px solid var(--color-light);
+
+    @include media(1400) {
+      display: none;
+    }
+  }
+
+  &__nav-tool {
+    display: flex;
+    align-items: center;
+    gap: to-rem(12);
+    height: to-rem(56);
+    padding: 0 to-rem(12);
+    border-radius: to-rem(16);
+    font-weight: 500;
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    color: var(--color-gray);
+    transition: color $dur $ease;
+
+    &:hover {
+      color: var(--color-green);
+    }
+
+    .icon-play__disk,
+    .icon-play__solid {
+      display: none;
+    }
+  }
+
+  &__burger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: to-rem(48);
+    height: to-rem(48);
+    padding: 0;
+    border: none;
+    border-radius: to-rem(16);
+    background: var(--color-light);
+    cursor: pointer;
+
+    @include media(1400) {
+      display: none;
+    }
+
+    span,
+    span::before,
+    span::after {
+      display: block;
+      width: to-rem(20);
+      height: 2px;
+      border-radius: 2px;
+      background: var(--color-green);
+      transition: transform $dur $ease, background $dur $ease;
+    }
+
+    span {
+      position: relative;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+      }
+
+      &::before {
+        top: to-rem(-6);
+      }
+
+      &::after {
+        top: to-rem(6);
+      }
+    }
+
+    &.active span {
+      background: transparent;
+
+      &::before {
+        transform: translateY(#{to-rem(6)}) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(#{to-rem(-6)}) rotate(-45deg);
+      }
+    }
+  }
+}

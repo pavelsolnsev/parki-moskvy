@@ -1,0 +1,19 @@
+{% extends 'default.html' %}
+
+{% block head %}
+	<link rel="preload" as="font" type="font/woff2" href="css/fonts/PTRootUI-Regular.woff2" crossorigin>
+	<link rel="preload" as="font" type="font/woff2" href="css/fonts/PTRootUI-Medium.woff2" crossorigin>
+	<link rel="preload" as="image" href="img/hero/hero.webp" fetchpriority="high">
+{% endblock %}
+
+{% block content %}
+	{% include 'hero/block.php' %}
+	{% include 'focus/block.php' %}
+	{% include 'hobby/block.php' %}
+	{% include 'afisha/block.php' %}
+	{% include 'parks/block.php' %}
+	{% include 'news/block.php' %}
+	{% include 'journal/block.php' %}
+	{% include 'about/block.php' %}
+	{% include 'partners/block.php' %}
+{% endblock %}

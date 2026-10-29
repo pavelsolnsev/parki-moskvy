@@ -1,0 +1,40 @@
+.breadcrumbs {
+  @include adaptiv-value(padding-top, 12, 16);
+  @include adaptiv-value(padding-bottom, 12, 16);
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: to-rem(4) to-rem(8);
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: to-rem(8);
+    font-weight: 500;
+    font-size: to-rem(14);
+    line-height: to-rem(20);
+    color: var(--color-gray);
+
+    & + &::before {
+      content: "/";
+      color: var(--color-gray);
+    }
+  }
+
+  &__link {
+    color: var(--color-gray);
+    transition: color $dur $ease;
+
+    &:hover {
+      color: var(--color-green);
+    }
+  }
+
+  &__current {
+    color: var(--color-black);
+  }
+}

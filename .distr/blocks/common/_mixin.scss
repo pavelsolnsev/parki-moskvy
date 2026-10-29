@@ -1,0 +1,220 @@
+@use "sass:math";
+
+$maxWidth: 1920;
+$mobWidth: 375;
+$px: px;
+
+$ease: cubic-bezier(0.4, 0, 0.2, 1);
+$dur: 0.25s;
+$dur-slow: 0.5s;
+
+@mixin adaptiv-value($property, $mobSize, $descSize) {
+    @if $mobSize == $descSize {
+        #{$property}: $mobSize + $px;
+    } @else {
+        $slope: math.div($descSize - $mobSize, $maxWidth - $mobWidth);
+        $base: $mobSize - $slope * $mobWidth;
+        #{$property}: clamp(#{math.min($mobSize, $descSize)}px, #{math.div(math.round($base * 100), 100)}px + #{math.div(math.round($slope * 10000), 100)}vw, #{math.max($mobSize, $descSize)}px);
+    }
+}
+
+@mixin media($point) {
+    @media (min-width: #{$point + $px}) {
+        @content;
+    }
+}
+
+@function to-rem($px) {
+    @return #{math.div($px, 16)}rem;
+}
+
+@mixin notch($w, $h, $path, $flip: false) {
+  $g: "%3Cg%3E";
+  @if $flip {
+    $g: "%3Cg transform='matrix(-1 0 0 1 #{$w} 0)'%3E";
+  }
+  $svg: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 #{$w} #{$h}' preserveAspectRatio='none'%3E#{$g}%3Cpath d='#{$path}'/%3E%3C/g%3E%3C/svg%3E";
+  --nw: calc(#{$w}px * var(--notch-k, 1));
+  --nh: calc(#{$h}px * var(--notch-k, 1));
+
+  @if $flip {
+    mask:
+      url("#{$svg}") 100% 0 / var(--nw) var(--nh) no-repeat,
+      linear-gradient(#000, #000) 0 0 / calc(100% - var(--nw) + 1px) 100% no-repeat,
+      linear-gradient(#000, #000) 0 calc(var(--nh) - 1px) / 100% calc(100% - var(--nh) + 1px) no-repeat;
+  } @else {
+    mask:
+      url("#{$svg}") 0 0 / var(--nw) var(--nh) no-repeat,
+      linear-gradient(#000, #000) calc(var(--nw) - 1px) 0 / calc(100% - var(--nw) + 1px) 100% no-repeat,
+      linear-gradient(#000, #000) 0 calc(var(--nh) - 1px) / 100% calc(100% - var(--nh) + 1px) no-repeat;
+  }
+}
+
+$notch-small: "M373 0H372.184C308.985 0 256.082 44.9709 242.609 105.151C234.082 143.243 246.387 157.139 259.312 176.834L292.336 217.429C292.336 142.587 232.752 81.969 159.367 81.969H0V218H373Z";
+$notch-footer: "M373 0H372.184C308.985 0 256.082 55.9223 242.609 130.758C234.082 178.126 246.387 195.406 259.312 219.897L292.336 270.378C292.336 177.31 232.752 101.93 159.367 101.93H0V271H373Z";
+
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
+@mixin select2-theme {
+  .select2-selection__arrow {
+    display: none;
+  }
+
+  &.select2-is-open > .icon {
+    transform: rotate(180deg);
+  }
+
+  .select2-dropdown {
+    margin-top: to-rem(8);
+    border: none;
+    border-radius: to-rem(20);
+    background: var(--color-white);
+    box-shadow: 0 to-rem(20) to-rem(40) rgba(0, 14, 51, 0.12);
+    overflow: hidden;
+  }
+
+  .select2-search--dropdown {
+    display: flex;
+    align-items: center;
+    gap: to-rem(8);
+    height: to-rem(48);
+    margin: to-rem(16) to-rem(16) to-rem(8);
+    padding: 0 to-rem(14);
+    border: 1px solid var(--color-light);
+    border-radius: to-rem(14);
+    background: var(--color-white);
+    transition: border-color $dur $ease;
+
+    &:focus-within {
+      border-color: var(--color-green);
+    }
+  }
+
+  .select2-search-icon {
+    display: flex;
+    flex: 0 0 auto;
+    color: rgba(0, 14, 51, 0.3);
+
+    .icon {
+      width: to-rem(20);
+      height: to-rem(20);
+    }
+  }
+
+  .select2-search--dropdown .select2-search__field {
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font: inherit;
+    font-size: to-rem(16);
+    color: var(--color-black);
+    background: transparent;
+
+    &::placeholder {
+      color: rgba(0, 14, 51, 0.3);
+    }
+  }
+
+  .select2-search-clear {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: to-rem(22);
+    height: to-rem(22);
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-light);
+    color: var(--color-gray);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $dur $ease, background $dur $ease, color $dur $ease;
+
+    .icon {
+      width: to-rem(12);
+      height: to-rem(12);
+    }
+
+    &:hover {
+      background: var(--color-green);
+      color: var(--color-white);
+    }
+
+    &.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .select2-dropdown .select2-results__options {
+    max-height: to-rem(280);
+    padding: to-rem(8) to-rem(8) to-rem(16);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-light) transparent;
+
+    &::-webkit-scrollbar {
+      width: to-rem(4);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-light);
+      border-radius: to-rem(999);
+    }
+  }
+
+  .select2-results__option {
+    padding: to-rem(12);
+    border-radius: to-rem(12);
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    color: var(--color-black);
+    cursor: pointer;
+    transition: background $dur $ease, color $dur $ease;
+
+    &--selected {
+      position: relative;
+      padding-right: to-rem(40);
+      background: none !important;
+      color: var(--color-green) !important;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: to-rem(12);
+        width: to-rem(18);
+        height: to-rem(18);
+        transform: translateY(-50%);
+        background: var(--color-green);
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.3 6.3a1 1 0 0 1 0 1.4l-9.5 9.5a1 1 0 0 1-1.4 0l-4.7-4.7a1 1 0 1 1 1.4-1.42l4 4 8.8-8.78a1 1 0 0 1 1.4 0'/%3E%3C/svg%3E") center / contain no-repeat;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.3 6.3a1 1 0 0 1 0 1.4l-9.5 9.5a1 1 0 0 1-1.4 0l-4.7-4.7a1 1 0 1 1 1.4-1.42l4 4 8.8-8.78a1 1 0 0 1 1.4 0'/%3E%3C/svg%3E") center / contain no-repeat;
+      }
+    }
+
+    &--selectable:not(.select2-results__option--selected):hover,
+    &--highlighted:not(.select2-results__option--selected) {
+      background: var(--color-light) !important;
+      color: var(--color-black) !important;
+    }
+  }
+
+  .select2-results__message {
+    padding: to-rem(12);
+    font-size: to-rem(14);
+    color: var(--color-gray);
+  }
+}

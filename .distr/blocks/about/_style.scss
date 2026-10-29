@@ -1,0 +1,218 @@
+@use "sass:math";
+
+.about {
+  @include adaptiv-value(padding-top, 56, 120);
+  @include adaptiv-value(padding-bottom, 72, 66);
+  background: #f6f8f7;
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(24);
+
+    @include media(1200) {
+      flex-direction: row;
+
+      > * {
+        flex: 1 1 0;
+      }
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(32);
+
+    @include media(1200) {
+      justify-content: center;
+      padding: to-rem(120) to-rem(92) to-rem(120) 0;
+    }
+  }
+
+  &__text {
+    @include adaptiv-value(font-size, 16, 24);
+    line-height: 1.17;
+    color: var(--color-black);
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: to-rem(16);
+    @include adaptiv-value(margin-top, 0, 16);
+  }
+
+  &__social {
+    --notch-k: 0.5;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: to-rem(48);
+    padding: to-rem(120) to-rem(24) to-rem(48);
+    overflow: hidden;
+    @include notch(373, 218, $notch-small, true);
+    @include adaptiv-value(border-bottom-right-radius, 48, 120);
+    color: var(--color-white);
+
+    @include media(768) {
+      --notch-k: 1;
+      padding: to-rem(120) to-rem(60);
+    }
+
+    @include media(1200) {
+      min-height: to-rem(626);
+    }
+  }
+
+  &__social-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #008e1c;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: to-rem(-2326);
+      top: to-rem(-1908);
+      width: to-rem(4124);
+      height: to-rem(4120);
+      background: url("../img/common/pattern.svg") 0 0 / 100% 100% no-repeat;
+      opacity: 0.6;
+    }
+  }
+
+  &__social-title,
+  &__links {
+    position: relative;
+  }
+
+  &__social-title {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 32, 72);
+    line-height: 1.14;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(12);
+  }
+
+  &__links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: to-rem(12);
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    min-height: to-rem(48);
+    padding-right: to-rem(20);
+    border-radius: to-rem(24);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(24px);
+    transform: translateZ(0);
+    font-weight: 500;
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    color: var(--color-white);
+    transition: background $dur $ease;
+
+    &:hover {
+      color: var(--color-white);
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__subscribe {
+    position: relative;
+    z-index: 1;
+    max-width: to-rem(828);
+    margin: to-rem(24) auto 0;
+    padding: to-rem(48) to-rem(20) to-rem(64);
+    background: var(--color-white);
+    color: var(--color-green);
+
+    @include media(768) {
+      padding: to-rem(120) to-rem(80);
+    }
+
+    @include media(1200) {
+      margin-top: to-rem(-60);
+    }
+  }
+
+  &__subscribe-title {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 28, 48);
+    line-height: 1.125;
+  }
+
+  &__subscribe-text {
+    margin-top: to-rem(12);
+    @include adaptiv-value(font-size, 16, 20);
+    line-height: 1.2;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(24);
+    margin-top: to-rem(40);
+
+    @include media(576) {
+      flex-direction: row;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    height: to-rem(56);
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-green);
+    transition: box-shadow $dur $ease;
+
+    &:focus {
+      box-shadow: 0 1px 0 var(--color-green);
+    }
+    border-radius: 0;
+    background: transparent;
+    font: inherit;
+    font-weight: 500;
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    color: var(--color-text);
+
+    &::placeholder {
+      color: rgba(0, 14, 51, 0.3);
+    }
+  }
+
+  &__thanks {
+    display: none;
+    margin-top: to-rem(40);
+    font-weight: 500;
+    font-size: to-rem(20);
+
+    .about__subscribe.sent & {
+      display: block;
+    }
+  }
+
+  .about__subscribe.sent &__form {
+    display: none;
+  }
+
+  &__mail {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: to-rem(148);
+    transform: translate(-50%, 54%);
+  }
+}

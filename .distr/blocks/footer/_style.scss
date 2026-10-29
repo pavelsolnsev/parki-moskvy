@@ -1,0 +1,200 @@
+@use "sass:math";
+
+.footer {
+  @include adaptiv-value(padding-top, 40, 100);
+  padding-bottom: to-rem(32);
+  background: var(--color-white);
+
+  &__logos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: to-rem(20);
+
+    @include media(768) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media(1200) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  &__logos-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include adaptiv-value(height, 96, 160);
+    transition: opacity $dur $ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    img {
+      max-width: 80%;
+    }
+  }
+
+  &__panel {
+    --notch-k: 0.5;
+    position: relative;
+    margin-top: to-rem(32);
+
+    @include media(768) {
+      --notch-k: 1;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      @include notch(373, 271, $notch-footer);
+      @include adaptiv-value(border-bottom-left-radius, 48, 120);
+      background:
+        url("../img/common/pattern-soft.svg") to-rem(-3482) to-rem(155) / to-rem(4124) to-rem(4120) no-repeat,
+        url("../img/common/pattern-soft.svg") to-rem(950) to-rem(-3775) / to-rem(4124) to-rem(4120) no-repeat,
+        var(--color-green);
+    }
+  }
+
+  &__brand {
+    position: absolute;
+    z-index: 1;
+    @include adaptiv-value(left, 0, 40);
+    @include adaptiv-value(top, 8, 40);
+
+    img {
+      @include adaptiv-value(width, 100, 130);
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    @include adaptiv-value(gap, 40, 80);
+    padding: to-rem(152) to-rem(20) to-rem(56);
+    color: var(--color-white);
+
+    @include media(768) {
+      padding: to-rem(140) to-rem(60) to-rem(80);
+    }
+
+    @include media(1200) {
+      padding: to-rem(80) to-rem(120) to-rem(100) math.div(426, 1680) * 100%;
+    }
+  }
+
+  &__menu {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: to-rem(24);
+
+    @include media(576) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: to-rem(40);
+    }
+  }
+
+  &__menu-col {
+    display: flex;
+    flex-direction: column;
+    @include adaptiv-value(gap, 24, 36);
+  }
+
+  &__link {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 18, 20);
+    line-height: 1.2;
+    color: var(--color-white);
+
+    &:hover {
+      color: var(--color-white);
+      opacity: 0.7;
+    }
+  }
+
+  &__contacts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: to-rem(24);
+
+    @include media(768) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(4);
+  }
+
+  &__label {
+    font-weight: 500;
+    font-size: to-rem(14);
+    line-height: to-rem(18);
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  &__value {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 18, 20);
+    line-height: 1.2;
+    color: var(--color-white);
+    overflow-wrap: anywhere;
+
+    &:hover {
+      color: var(--color-white);
+      opacity: 0.7;
+    }
+  }
+
+  &__bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: to-rem(16);
+    margin-top: to-rem(32);
+    font-weight: 500;
+    font-size: to-rem(14);
+    line-height: to-rem(18);
+
+    @include media(992) {
+      grid-template-columns: 1fr auto 1fr;
+      gap: to-rem(40);
+    }
+  }
+
+  &__copy {
+    color: var(--color-black);
+
+    @include media(992) {
+      justify-self: start;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    @include adaptiv-value(gap, 12, 24);
+  }
+
+  &__social {
+    display: flex;
+    transition: opacity $dur $ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__made {
+    color: var(--color-green);
+
+    @include media(992) {
+      justify-self: end;
+    }
+  }
+}

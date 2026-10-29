@@ -1,0 +1,308 @@
+@use "sass:math";
+
+.parks {
+  @include adaptiv-value(padding-bottom, 0, 34);
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+
+    @include media(1400) {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+  }
+
+  &__panel {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    @include adaptiv-value(gap, 32, 72);
+    padding: to-rem(40) to-rem(20);
+    background: var(--color-light);
+
+    @include media(768) {
+      padding: to-rem(60) to-rem(80) to-rem(80);
+    }
+
+    @include media(1400) {
+      flex: 0 0 math.div(634, 1680) * 100%;
+      min-height: to-rem(912);
+    }
+  }
+
+  &__deco {
+    position: absolute;
+    left: to-rem(220);
+    top: to-rem(417);
+    width: to-rem(540);
+    max-width: none;
+    pointer-events: none;
+  }
+
+  &__title,
+  &__filters {
+    position: relative;
+  }
+
+  &__title {
+    font-weight: 500;
+    @include adaptiv-value(font-size, 28, 48);
+    line-height: 1.125;
+    color: var(--color-green);
+  }
+
+  &__filters {
+    display: flex;
+    flex-direction: column;
+    @include adaptiv-value(gap, 32, 48);
+  }
+
+  &__select {
+    position: relative;
+    margin: 0;
+    color: var(--color-black);
+
+    > .icon {
+      position: absolute;
+      top: to-rem(16);
+      right: 0;
+      pointer-events: none;
+      transition: transform $dur $ease, color $dur $ease;
+    }
+
+    &:hover > .icon,
+    &.select2-is-open > .icon {
+      color: var(--color-green);
+    }
+
+    .select2-selection--single {
+      display: flex;
+      align-items: center;
+      height: to-rem(56);
+      padding: 0 to-rem(36) 0 0;
+      border: none;
+      border-bottom: 1px solid var(--color-black);
+      border-radius: 0;
+      background: transparent;
+      transition: border-color $dur $ease, box-shadow $dur $ease;
+    }
+
+    &:hover .select2-selection--single,
+    &.select2-is-open .select2-selection--single {
+      border-color: var(--color-green);
+      box-shadow: 0 1px 0 var(--color-green);
+    }
+
+    .select2-selection__rendered {
+      padding: 0;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: to-rem(16);
+      line-height: to-rem(22);
+      text-transform: uppercase;
+      color: inherit;
+    }
+
+    @include select2-theme;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(16);
+  }
+
+  &__label {
+    font-weight: 500;
+    font-size: to-rem(12);
+    line-height: to-rem(14);
+    text-transform: uppercase;
+    color: var(--color-black);
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: to-rem(8);
+  }
+
+  &__chip {
+    height: to-rem(48);
+    padding: 0 to-rem(18);
+    border: 1px solid var(--color-light);
+    border-radius: to-rem(999);
+    background: var(--color-white);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    color: var(--color-green);
+    cursor: pointer;
+    transition: background $dur $ease, color $dur $ease, border-color $dur $ease;
+
+    &:hover {
+      border-color: var(--color-light);
+      background: var(--color-light);
+    }
+
+    &.active {
+      border-color: var(--color-green);
+      background: var(--color-green);
+      color: var(--color-white);
+    }
+  }
+
+  &__map {
+    position: relative;
+    flex: 1;
+    aspect-ratio: 1088 / 768;
+    overflow: hidden;
+    background: var(--color-light);
+
+    @include media(1400) {
+      margin-bottom: to-rem(20);
+    }
+  }
+
+  &__layer {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 50%;
+    transition: transform $dur-slow $ease;
+  }
+
+  &__map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__pin,
+  &__cluster {
+    position: absolute;
+    z-index: 1;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    transform: scale(var(--pin-scale, 1));
+  }
+
+  &__pin {
+    transform-origin: 37.5% 95%;
+    width: math.div(48, 1088) * 100%;
+    min-width: to-rem(24);
+    background: none;
+    transition: transform $dur $ease;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    &:hover,
+    &:focus-visible {
+      z-index: 10;
+      transform: scale(var(--pin-scale, 1)) translateY(-4px);
+    }
+
+    &:hover .parks__tooltip,
+    &:focus-visible .parks__tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -4px);
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    z-index: 2;
+    padding: to-rem(8) to-rem(14);
+    border-radius: to-rem(999);
+    background: var(--color-black);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: to-rem(14);
+    line-height: to-rem(18);
+    color: var(--color-white);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, 0);
+    transition: opacity $dur $ease, transform $dur $ease, visibility $dur $ease;
+  }
+
+  &__cluster {
+    transform-origin: 50% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: math.div(36, 1088) * 100%;
+    min-width: to-rem(22);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-green);
+    box-shadow: 0 0 to-rem(24) rgba(0, 0, 0, 0.25);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: clamp(#{to-rem(10)}, 1vw, #{to-rem(14)});
+    color: var(--color-white);
+  }
+
+  &__zoom {
+    position: absolute;
+    right: math.div(10, 1088) * 100%;
+    top: 50%;
+    display: none;
+    flex-direction: column;
+    gap: to-rem(16);
+    transform: translateY(-50%);
+
+    @include media(768) {
+      display: flex;
+    }
+  }
+
+  &__zoom-btn {
+    position: relative;
+    width: to-rem(56);
+    height: to-rem(56);
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-black);
+    cursor: pointer;
+    transition: color $dur $ease;
+
+    &:hover {
+      color: var(--color-green);
+    }
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: to-rem(13);
+      height: 2px;
+      background: currentColor;
+      transform: translate(-50%, -50%);
+
+      & + span {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+  }
+
+  &__logo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: math.div(80, 1088) * 100%;
+    min-width: to-rem(48);
+  }
+}

@@ -1,0 +1,197 @@
+@use "sass:math";
+
+.journal {
+  @include adaptiv-value(padding-top, 56, 100);
+  background: linear-gradient(to bottom, rgba(246, 248, 247, 0) 0%, #f6f8f7 100%);
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(16);
+    @include adaptiv-value(margin-bottom, 24, 32);
+
+    @include media(992) {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  &__text {
+    @include adaptiv-value(font-size, 16, 24);
+    line-height: 1.17;
+    color: var(--color-black);
+
+    @include media(992) {
+      padding-bottom: to-rem(10);
+      text-align: right;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: to-rem(24);
+
+    @include media(1400) {
+      flex-direction: row;
+
+      > * {
+        flex: 1 1 0;
+      }
+    }
+  }
+
+  &__cover {
+    --notch-k: 0.5;
+    position: relative;
+    display: block;
+    aspect-ratio: 828 / 656;
+    overflow: hidden;
+    color: var(--color-white);
+
+    @include media(768) {
+      --notch-k: 1;
+    }
+
+    &:hover {
+      color: var(--color-white);
+    }
+
+    @include hover {
+      .journal__photo {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      .journal__photo-label {
+        opacity: 1;
+      }
+
+      .journal__photo img {
+        filter: brightness(0.6);
+      }
+    }
+  }
+
+  &__cover-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    @include notch(373, 218, $notch-small);
+    @include adaptiv-value(border-bottom-left-radius, 48, 120);
+    background: #008e1c;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: math.div(-1260, 828) * 100%;
+      top: math.div(-1678, 656) * 100%;
+      width: math.div(4124, 828) * 100%;
+      height: math.div(4120, 656) * 100%;
+      background: url("../img/common/pattern.svg") 0 0 / 100% 100% no-repeat;
+      opacity: 0.6;
+    }
+  }
+
+  &__photo {
+    position: absolute;
+    left: math.div(597.5, 828) * 100%;
+    top: math.div(398, 656) * 100%;
+    width: math.div(460, 828) * 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    transform: translate(-50%, -50%) rotate(5deg);
+    transition: transform $dur-slow $ease;
+    will-change: transform;
+    backface-visibility: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter $dur-slow $ease;
+    }
+  }
+
+  &__photo-label {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: to-rem(8);
+    font-weight: 500;
+    font-size: to-rem(16);
+    line-height: to-rem(22);
+    text-align: center;
+    color: var(--color-white);
+    opacity: 0;
+    transition: opacity $dur $ease;
+
+    .icon {
+      width: to-rem(20);
+      height: to-rem(20);
+    }
+  }
+
+  &__season,
+  &__label,
+  &__logo {
+    position: absolute;
+    z-index: 1;
+    left: math.div(40, 828) * 100%;
+  }
+
+  &__season {
+    top: math.div(40, 656) * 100%;
+  }
+
+  &__label {
+    top: math.div(120, 656) * 100%;
+    font-weight: 500;
+    font-size: to-rem(12);
+    line-height: to-rem(14);
+    text-transform: uppercase;
+  }
+
+  &__logo {
+    top: math.div(152, 656) * 100%;
+    width: math.div(173, 828) * 100%;
+    min-width: to-rem(96);
+  }
+
+  &__side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: to-rem(24);
+    min-width: 0;
+  }
+
+  &__list {
+    width: 100%;
+    min-width: 0;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: to-rem(16);
+
+    .button-round {
+      display: none;
+
+      @include media(576) {
+        display: flex;
+      }
+    }
+  }
+
+  &__all {
+    margin-left: to-rem(8);
+    padding-right: to-rem(22);
+  }
+}
