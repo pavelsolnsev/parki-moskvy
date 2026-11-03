@@ -4,21 +4,20 @@
   z-index: 100;
   padding: to-rem(4) 0;
   @include adaptiv-value(padding-inline, 8, 96);
+  background: transparent;
+  transition: background $dur $ease;
+
+  &.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+  }
 
   &__inner {
     display: flex;
     flex-direction: column;
     gap: to-rem(4);
     padding: to-rem(4);
-    border-radius: to-rem(24);
-    background: transparent;
     transform: translateZ(0);
-    transition: background $dur $ease;
-  }
-
-  &.scrolled &__inner {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(24px);
   }
 
   &__top {
