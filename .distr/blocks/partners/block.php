@@ -7,7 +7,7 @@
 	{ img: 'vkusvill.svg', name: 'ВкусВилл', w: 84, slug: 'vkusvill' }
 ] %}
 
-<section class="partners">
+<section class="partners" id="partners">
 	<div class="container">
 		<h2 class="section-title partners__title">Партнеры</h2>
 

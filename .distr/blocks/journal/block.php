@@ -3,7 +3,7 @@
 	{ park: 'Коробковский сад', title: 'Золотая осень: 5 маршрутов по паркам Москвы', tags: ['Фестивали', 'Концерты', 'Детям'] }
 ] %}
 
-<section class="journal">
+<section class="journal" id="journal">
 	<div class="container">
 		<div class="journal__head">
 			<h2 class="section-title">Новый выпуск журнала</h2>

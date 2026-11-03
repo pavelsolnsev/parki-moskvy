@@ -36,12 +36,12 @@
 			<a href="./" class="header__logo"><img src="img/header/logo.svg" alt="Парки Москвы" width="147" height="36"></a>
 
 			<nav class="header__nav" id="header-nav" aria-label="Основное меню">
-				<a href="#" class="header__link">Об организации</a>
-				<a href="#afisha" class="header__link scroll">Афиша</a>
-				<a href="#" class="header__link">Медиа</a>
-				<a href="#" class="header__link">Стать партнером</a>
+				<a href="#about" class="header__link">Об организации</a>
+				<a href="#afisha" class="header__link">Афиша</a>
+				<a href="#journal" class="header__link">Медиа</a>
+				<a href="#partners" class="header__link">Стать партнером</a>
 				<a href="#" class="header__link">Открой бизнес</a>
-				<a href="#parks" class="header__link scroll">К любимому парку {% include "icons/heart.svg" %}</a>
+				<a href="#parks" class="header__link">К любимому парку {% include "icons/heart.svg" %}</a>
 				<a href="#" class="header__link">Инфраструктура</a>
 
 				<div class="header__nav-extra">

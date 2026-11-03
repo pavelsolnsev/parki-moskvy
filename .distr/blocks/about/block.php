@@ -3,7 +3,7 @@
 	[{ icon: 'vk', name: 'Официальная группа в Вконтакте' }, { icon: 'hh', name: 'Наши вакансии' }]
 ] %}
 
-<section class="about">
+<section class="about" id="about">
 	<div class="container">
 		<div class="about__row">
 			<div class="about__info">

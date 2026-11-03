@@ -6,6 +6,43 @@ window.App = (function () {
     return el.dispatchEvent(new CustomEvent(name, { bubbles: true, cancelable, detail }));
   }
 
+  let scrollFrame = null;
+
+  function scrollTo(target, duration) {
+    const el = typeof target === "string" ? document.querySelector(target) : $(target)[0];
+    if (!el) return;
+
+    const targetY = () => {
+      const offset = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      return Math.min(max, Math.max(0, el.getBoundingClientRect().top + window.scrollY - offset));
+    };
+
+    const startY = window.scrollY;
+    const time = duration || Math.min(1000, Math.max(400, Math.abs(targetY() - startY) / 3));
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const startTime = performance.now();
+
+    const stop = () => {
+      cancelAnimationFrame(scrollFrame);
+      window.removeEventListener("wheel", stop);
+      window.removeEventListener("touchstart", stop);
+    };
+
+    stop();
+    window.addEventListener("wheel", stop, { passive: true });
+    window.addEventListener("touchstart", stop, { passive: true });
+
+    const step = (now) => {
+      const progress = Math.min(1, (now - startTime) / time);
+      window.scrollTo(0, startY + (targetY() - startY) * ease(progress));
+      if (progress < 1) scrollFrame = requestAnimationFrame(step);
+      else stop();
+    };
+
+    scrollFrame = requestAnimationFrame(step);
+  }
+
   function initSelect2(wrap) {
     const $wrap = $(wrap).first();
     const $select = $wrap.find("select").first();
@@ -79,12 +116,11 @@ window.App = (function () {
     });
   }
 
-  return { emit, initSelect2, initDragScroll };
+  return { emit, scrollTo, initSelect2, initDragScroll };
 })();
 
 $(function () {
   const { emit } = App;
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (window.Swiper) {
     Swiper.extendDefaults({
@@ -119,7 +155,7 @@ $(function () {
     const $target = id && $(document.getElementById(id));
     if (!$target || !$target.length) return;
     e.preventDefault();
-    $target[0].scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+    App.scrollTo($target[0]);
     if (!$target.is("a, button, input, select, textarea, [tabindex]")) $target.attr("tabindex", "-1");
     $target[0].focus({ preventScroll: true });
   });

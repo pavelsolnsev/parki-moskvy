@@ -8,9 +8,9 @@
 ] %}
 
 {% set menu = [
-	['Об организации', 'Афиша', 'Новости'],
-	['Стать партнером', 'Открой бизнес', 'Медиа'],
-	['К любимому парку', 'Инфраструктура']
+	[{ title: 'Об организации', href: '#about' }, { title: 'Афиша', href: '#afisha' }, { title: 'Новости', href: '#news' }],
+	[{ title: 'Стать партнером', href: '#partners' }, { title: 'Открой бизнес', href: '#' }, { title: 'Медиа', href: '#journal' }],
+	[{ title: 'К любимому парку', href: '#parks' }, { title: 'Инфраструктура', href: '#' }]
 ] %}
 
 {% set mails = [
@@ -34,7 +34,7 @@
 				<nav class="footer__menu" aria-label="Меню в подвале">
 					{% for col in menu %}
 					<div class="footer__menu-col">
-						{% for link in col %}<a href="#" class="footer__link">{{ link }}</a>{% endfor %}
+						{% for link in col %}<a href="{{ link.href }}" class="footer__link">{{ link.title }}</a>{% endfor %}
 					</div>
 					{% endfor %}
 				</nav>

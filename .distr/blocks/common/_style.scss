@@ -84,6 +84,10 @@ button {
   display: none !important;
 }
 
+[id] {
+  scroll-margin-top: calc(var(--header-height, #{to-rem(80)}) + #{to-rem(16)});
+}
+
 *:focus {
   outline: none;
 }
@@ -144,14 +148,6 @@ select::-ms-expand {
 [type="submit"][disabled] {
   cursor: not-allowed !important;
   opacity: 0.5;
-}
-
-[id] {
-  scroll-margin-top: to-rem(72);
-
-  @include media(1400) {
-    scroll-margin-top: to-rem(170);
-  }
 }
 
 .d-none {

@@ -5,7 +5,7 @@
 	{ cat: 'Коробковский сад', title: 'Парки приглашают на семейные праздники осени', date: '10 октября 2026', tags: ['Фестивали', 'Концерты', 'Детям'] }
 ] %}
 
-<section class="news">
+<section class="news" id="news">
 	<div class="container">
 		<div class="news__head">
 			<h2 class="section-title">Кстати, у нас новости</h2>

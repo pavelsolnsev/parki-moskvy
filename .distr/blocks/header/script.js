@@ -23,6 +23,11 @@
     });
   }
 
+  const setHeaderHeight = () => document.documentElement.style.setProperty("--header-height", `${$header.outerHeight()}px`);
+  setHeaderHeight();
+  if (window.ResizeObserver) new ResizeObserver(setHeaderHeight).observe($header[0]);
+  else $(window).on("resize", setHeaderHeight);
+
   let scrolled = null;
   const toggleScrolled = () => {
     const state = window.scrollY > 0;
