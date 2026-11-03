@@ -1,4 +1,4 @@
-window.App = (function () {
+(function () {
   const SEARCH_ICON = '<svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M11 2a8.79 8.79 0 0 1 6.52 14.68l4.58 4.57-1.06 1.06-4.62-4.6A8.79 8.79 0 1 1 11 2m0 1.5a7.29 7.29 0 1 0 0 14.58A7.29 7.29 0 0 0 11 3.5"/></svg>';
   const CLOSE_ICON = '<svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10.94 5.78-5.78 1.06 1.06L13.06 12l5.78 5.78-1.06 1.06L12 13.06l-5.78 5.78-1.06-1.06L10.94 12 5.16 6.22l1.06-1.06z"/></svg>';
 
@@ -117,47 +117,68 @@ window.App = (function () {
     });
   }
 
-  return { emit, scrollTo, initSelect2, initDragScroll };
-})();
+  const readyQueue = [];
+  let isReady = false;
 
-$(function () {
-  const { emit } = App;
-
-  if (window.Swiper) {
-    Swiper.extendDefaults({
-      a11y: {
-        prevSlideMessage: "Предыдущий слайд",
-        nextSlideMessage: "Следующий слайд",
-        firstSlideMessage: "Это первый слайд",
-        lastSlideMessage: "Это последний слайд",
-        paginationBulletMessage: "Перейти к слайду {{index}}",
-        slideLabelMessage: "{{index}} из {{slidesLength}}",
-        containerRoleDescriptionMessage: "карусель",
-        itemRoleDescriptionMessage: "слайд",
-      },
-    });
+  function ready(fn) {
+    if (isReady) fn();
+    else readyQueue.push(fn);
   }
 
-  //=require header/script.js
-  //=require hero/script.js
-  //=require focus/script.js
-  //=require hobby/script.js
-  //=require afisha/script.js
-  //=require journal/script.js
-  //=require partners/script.js
-  //=require news/script.js
-  //=require parks/script.js
-  //=require about/script.js
+  window.App = { emit, scrollTo, initSelect2, initDragScroll, ready };
 
-  App.initDragScroll();
+  function init() {
+    if (window.Swiper) {
+      Swiper.extendDefaults({
+        a11y: {
+          prevSlideMessage: "Предыдущий слайд",
+          nextSlideMessage: "Следующий слайд",
+          firstSlideMessage: "Это первый слайд",
+          lastSlideMessage: "Это последний слайд",
+          paginationBulletMessage: "Перейти к слайду {{index}}",
+          slideLabelMessage: "{{index}} из {{slidesLength}}",
+          containerRoleDescriptionMessage: "карусель",
+          itemRoleDescriptionMessage: "слайд",
+        },
+      });
+    }
 
-  $(document).on("click", 'a[href^="#"]', function (e) {
-    const id = $(this).attr("href").slice(1);
-    const $target = id && $(document.getElementById(id));
-    if (!$target || !$target.length) return;
-    e.preventDefault();
-    App.scrollTo($target[0]);
-    if (!$target.is("a, button, input, select, textarea, [tabindex]")) $target.attr("tabindex", "-1");
-    $target[0].focus({ preventScroll: true });
-  });
-});
+    //=require header/script.js
+    //=require hero/script.js
+    //=require focus/script.js
+    //=require hobby/script.js
+    //=require afisha/script.js
+    //=require journal/script.js
+    //=require partners/script.js
+    //=require news/script.js
+    //=require parks/script.js
+    //=require about/script.js
+
+    App.initDragScroll();
+
+    $(document).on("click", 'a[href^="#"]', function (e) {
+      const id = $(this).attr("href").slice(1);
+      const $target = id && $(document.getElementById(id));
+      if (!$target || !$target.length) return;
+      e.preventDefault();
+      App.scrollTo($target[0]);
+      if (!$target.is("a, button, input, select, textarea, [tabindex]")) $target.attr("tabindex", "-1");
+      $target[0].focus({ preventScroll: true });
+    });
+
+    isReady = true;
+    readyQueue.splice(0).forEach((fn) => {
+      try {
+        fn();
+      } catch (err) {
+        setTimeout(() => {
+          throw err;
+        });
+      }
+    });
+    emit(document, "app:ready");
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();

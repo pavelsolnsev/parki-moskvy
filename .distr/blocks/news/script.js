@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   if (!$(".news__list").length) return;
 
   new Swiper(".news__list", {
@@ -10,4 +10,4 @@ $(function () {
       1200: { slidesPerView: 4, spaceBetween: 24, allowTouchMove: false },
     },
   });
-});
+})();

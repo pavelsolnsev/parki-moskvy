@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   if (!$(".focus__slider").length) return;
 
   new Swiper(".focus__slider", {
@@ -14,4 +14,4 @@ $(function () {
       1400: { slidesOffsetBefore: 120, slidesOffsetAfter: 120 },
     },
   });
-});
+})();

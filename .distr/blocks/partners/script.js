@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   if (!$(".partners__list").length) return;
 
   new Swiper(".partners__list", {
@@ -13,4 +13,4 @@ $(function () {
       1200: { slidesPerView: 6, spaceBetween: 24, allowTouchMove: false },
     },
   });
-});
+})();

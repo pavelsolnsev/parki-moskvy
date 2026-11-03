@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   if (!$(".hobby__slider").length) return;
 
   new Swiper(".hobby__slider", {
@@ -13,4 +13,4 @@ $(function () {
       1400: { spaceBetween: 24 },
     },
   });
-});
+})();

@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   const $hero = $(".hero");
   if (!$hero.length) return;
 
@@ -27,4 +27,4 @@ $(function () {
       if (!$hero[0].contains(e.relatedTarget)) swiper.autoplay.resume();
     });
   }
-});
+})();

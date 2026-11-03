@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   if (!$(".journal__list").length) return;
 
   new Swiper(".journal__list", {
@@ -13,4 +13,4 @@ $(function () {
       576: { slidesPerView: 2, spaceBetween: 24 },
     },
   });
-});
+})();

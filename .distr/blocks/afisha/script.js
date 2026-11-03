@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   const $afisha = $(".afisha");
   if (!$afisha.length) return;
 
@@ -79,6 +79,11 @@ $(function () {
   });
 
   $afisha.find(".afisha__more").on("click", function (e) {
+    if (!emit(this, "afisha:more", { visible: $cards.filter(":visible").length }, true)) {
+      e.preventDefault();
+      return;
+    }
+
     const $grid = $afisha.find(".afisha__grid");
     const collapsed = $cards.is(function () {
       return !$(this).hasClass("hidden") && $(this).css("display") === "none";
@@ -89,4 +94,4 @@ $(function () {
       $grid.addClass("expanded");
     }
   });
-});
+})();
