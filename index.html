@@ -42,7 +42,7 @@
 	<link href="favicon.svg" type="image/svg+xml" rel="icon">
 	<link rel="preload" as="font" type="font/woff2" href="css/fonts/PTRootUI-Regular.woff2" crossorigin>
 	<link rel="preload" as="font" type="font/woff2" href="css/fonts/PTRootUI-Medium.woff2" crossorigin>
-	<link rel="preload" as="image" href="img/hero/hero.webp" fetchpriority="high">
+	<link rel="preload" as="image" href="img/hero/hero-1-poster.webp" fetchpriority="high">
 	<link rel="stylesheet" href="libs/swiper-bundle.min.css">
 	<link rel="stylesheet" href="libs/select2.min.css">
 	<link rel="stylesheet" href="css/style.css">
@@ -114,14 +114,24 @@
 					<div class="hero__box swiper">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide hero__slide">
-								<img src="img/hero/hero.webp" alt="" class="hero__img">
+								<video class="hero__img hero__video" poster="img/hero/hero-1-poster.webp" muted loop playsinline disablepictureinpicture preload="auto" aria-hidden="true" tabindex="-1">
+									<source src="img/hero/hero-1-sm.webm" type='video/webm; codecs="av01.0.05M.08"' media="(max-width: 767px)">
+									<source src="img/hero/hero-1-sm.mp4" type="video/mp4" media="(max-width: 767px)">
+									<source src="img/hero/hero-1.webm" type='video/webm; codecs="av01.0.08M.08"'>
+									<source src="img/hero/hero-1.mp4" type="video/mp4">
+								</video>
 								<div class="hero__content">
 			<h1 class="hero__title">Новая<br>городская привычка</h1>						<p class="hero__text">Вместе создаем пространства для жизни,<br class="d-none d-md-block"> вдохновения и общения</p>
 									<a href="#afisha" class="hero__button scroll">Открыть осеннюю афишу</a>
 								</div>
 							</div>
 							<div class="swiper-slide hero__slide">
-								<img src="img/hero/hero.webp" alt="" class="hero__img">
+								<video class="hero__img hero__video" poster="img/hero/hero-2-poster.webp" muted loop playsinline disablepictureinpicture preload="none" aria-hidden="true" tabindex="-1">
+									<source src="img/hero/hero-2-sm.webm" type='video/webm; codecs="av01.0.05M.08"' media="(max-width: 767px)">
+									<source src="img/hero/hero-2-sm.mp4" type="video/mp4" media="(max-width: 767px)">
+									<source src="img/hero/hero-2.webm" type='video/webm; codecs="av01.0.08M.08"'>
+									<source src="img/hero/hero-2.mp4" type="video/mp4">
+								</video>
 								<div class="hero__content">
 			<p class="hero__title">Новая<br>городская привычка</p>						<p class="hero__text">Вместе создаем пространства для жизни,<br class="d-none d-md-block"> вдохновения и общения</p>
 									<a href="#afisha" class="hero__button scroll">Открыть осеннюю афишу</a>
@@ -134,6 +144,10 @@
 								<div class="hero__counter"><span class="hero__current">01</span> — <span class="hero__total">02</span></div>
 								<button type="button" class="hero__arrow hero__arrow_prev" aria-label="Назад"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M10.67 7.28c0 1.57-.77 3.08-1.98 4.1h10.6v1.24H8.7a5.4 5.4 0 0 1 1.98 4.1v.62H9.42v-.62c0-2.1-1.86-4.1-4.09-4.1h-.62v-1.24h.62c2.23 0 4.1-2 4.1-4.1v-.62h1.24z"/></svg></button>
 								<button type="button" class="hero__arrow hero__arrow_next" aria-label="Вперёд"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M14.57 7.28c0 2.1 1.87 4.1 4.1 4.1h.62v1.24h-.62c-2.23 0-4.1 2-4.1 4.1v.62h-1.25v-.62c0-1.57.78-3.08 2-4.1H4.7v-1.24h10.6a5.4 5.4 0 0 1-1.99-4.1v-.62h1.25z"/></svg></button>
+								<button type="button" class="hero__arrow hero__pause" aria-label="Остановить видео и прокрутку слайдов" aria-pressed="false">
+									<svg class="icon hero__pause-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h3.5v14H7zm6.5 0H17v14h-3.5z"/></svg>
+									<svg class="icon hero__resume-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.14v13.72L19 12z"/></svg>
+								</button>
 							</div>
 						</div>
 					</div>
