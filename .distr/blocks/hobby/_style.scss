@@ -87,10 +87,15 @@
     height: var(--deco-h);
     max-width: none;
     transform: translate(-50%, -50%) rotate(var(--deco-rotate, 0deg));
-    transition: transform 0.6s $ease;
+    transition: transform 0.6s $ease, opacity 0.6s $ease;
 
     .hobby__card:hover & {
-      transform: translate(-50%, -50%) rotate(calc(var(--deco-rotate, 0deg) + 20deg));
+      transform: translate(-50%, -50%) rotate(calc(var(--deco-rotate, 0deg) + var(--deco-turn, 20deg)));
+    }
+
+    .hobby__card_deco-hide:hover & {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(var(--deco-rotate, 0deg));
     }
   }
 
