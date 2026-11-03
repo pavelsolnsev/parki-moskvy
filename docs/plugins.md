@@ -94,6 +94,7 @@ $(document).on("afisha:datechange", (e) => console.log(e.originalEvent.detail.da
 | `parks:pinclick` | `.parks__pin` | `{ park }` — название парка |
 | `header:menutoggle` | `.header` | `{ open }` — мобильное меню открыто/закрыто |
 | `afisha:more` | `.afisha__more` | `{ visible }` — нажата «Показать ещё», сколько карточек видно; отменяемое |
+| `hero:pause` | `.hero` | `{ paused }` — нажата кнопка паузы видео и прокрутки слайдов |
 | `subscribe:submit` | `.about__form` | `{ email }` — отменяемое, см. ниже |
 | `app:ready` | `document` | — вёрстка инициализирована |
 

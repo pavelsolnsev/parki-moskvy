@@ -52,6 +52,10 @@
     }
   }
 
+  &:nth-child(even) &__image::after {
+    background-image: url("../img/tile/deco-violet.svg");
+  }
+
   &__badge {
     position: absolute;
     left: to-rem(10);
