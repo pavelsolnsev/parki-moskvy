@@ -43,7 +43,7 @@ window.App = (function () {
     scrollFrame = requestAnimationFrame(step);
   }
 
-  function initSelect2(wrap) {
+  function initSelect2(wrap, options = {}) {
     const $wrap = $(wrap).first();
     const $select = $wrap.find("select").first();
     if (!$select.length || !$.fn.select2 || $select.hasClass("select2-hidden-accessible")) return $select;
@@ -52,8 +52,9 @@ window.App = (function () {
       .select2({
         width: "100%",
         minimumResultsForSearch: 0,
-        dropdownParent: $wrap,
         language: { noResults: () => "Ничего не найдено" },
+        ...options,
+        dropdownParent: $wrap,
       })
       .on("select2:open", function () {
         $wrap.addClass("select2-is-open");

@@ -52,7 +52,7 @@ $(function () {
   const $park = $afisha.find(".afisha__park");
   const $filters = $afisha.find("button.afisha__filter");
 
-  App.initSelect2($afisha.find(".afisha__select"));
+  App.initSelect2($afisha.find(".afisha__select"), { width: "auto" });
 
   function applyFilters() {
     const tags = $filters.filter(".active").map((i, el) => $(el).data("tag")).get();

@@ -50,16 +50,21 @@
   }
 
   &__select {
+    max-width: 100%;
     margin: 0;
 
     &.select2-is-open {
       background: var(--color-light);
     }
 
+    .select2-container {
+      max-width: 100%;
+    }
+
     .select2-selection--single {
       display: flex;
       align-items: center;
-      width: to-rem(226);
+      min-width: to-rem(226);
       max-width: 100%;
       height: 100%;
       padding: 0 to-rem(52) 0 to-rem(20);
