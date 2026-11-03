@@ -42,8 +42,9 @@
   }
 
   &__track {
+    --w: clamp(#{to-rem(280)}, #{to-rem(280)} + (100vw - #{to-rem(375)}) * #{math.div(544 - 280, 1920 - 375)}, #{to-rem(544)});
     @include adaptiv-value(padding-top, 32, 40);
-    @include adaptiv-value(padding-bottom, 72, 100);
+    padding-bottom: max(#{to-rem(72)}, calc(var(--w) * 0.23));
   }
 
   &__slide {
